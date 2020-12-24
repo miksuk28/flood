@@ -14,12 +14,12 @@ function love.keypressed(k)
 		if k == "r" then generate_field() end
 		if k == "f" then update_flood_map() end
 		--picking colors
-		if k == "1" then current_color = "red"; moves = moves + 1 end
-		if K == "2" then current_color = "orange"; moves = moves + 1 end
-		if k == "3" then current_color = "yellow"; moves = moves + 1 end
-		if k == "4" then current_color = "green"; moves = moves + 1 end
-		if k == "5" then current_color = "blue"; moves = moves + 1 end
-		if k == "6" then current_color = "purple"; moves = moves + 1 end
+		if k == "1" then current_color = "red"; 	moves = moves + 1; --[[update_flood_map()--]] end
+		if k == "2" then current_color = "orange"; 	moves = moves + 1; --[[update_flood_map()--]] end
+		if k == "3" then current_color = "yellow"; 	moves = moves + 1; --[[update_flood_map()--]] end
+		if k == "4" then current_color = "green"; 	moves = moves + 1; --[[update_flood_map()--]] end
+		if k == "5" then current_color = "blue"; 	moves = moves + 1; --[[update_flood_map()--]] end
+		if k == "6" then current_color = "purple"; 	moves = moves + 1; --[[update_flood_map()--]] end
 	end
 end
 
@@ -85,10 +85,10 @@ function generate_flood_map()
 end
 
 function update_flood_map()
-	generate_flood_map() -- just for debugging REMOVE LATER
+	--[[
 	if moves == 0 then
 		current_color = field[1][1]
-	end
+	end --]]
 
 	for y = 1, field_h, 1 do
 		for x = 1, field_w, 1 do

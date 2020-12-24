@@ -14,10 +14,12 @@ function love.load()
 	moves = 0
 	generate_field()
 	generate_flood_map()
+
+	current_color = field[1][1]
 end
 
 function love.update(dt)
-
+	update_flood_map()
 end
 
 function love.draw()
