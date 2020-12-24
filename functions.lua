@@ -16,6 +16,7 @@ function love.keypressed(k)
 end
 
 function generate_field()
+	field = {}
 	for i = 1, field_h, 1 do
 		local x = {}
 		for i = 1, field_w do
@@ -30,7 +31,6 @@ function draw_field()
 	space_x = x_start
 	space_y = y_start
 
-	rgb_color(0,0,0)
 	for i = 1, field_h do
 		y = i
 		for i = 1, field_w do
@@ -46,6 +46,7 @@ end
 
 function get_block_color(x, y)
 	tile = field[y][x]
+	--print("Coloring tile: " .. x .. ", " .. y)
 	if tile == "red" then
 		rgb_color(255, 0, 0)
 	elseif tile == "orange" then
@@ -59,4 +60,30 @@ function get_block_color(x, y)
 	elseif tile == "purple" then
 		rgb_color(255, 0, 255)
 	end
+end
+
+function generate_flood_map()
+	flood_map = {}
+	for i = 1, field_h, 1 do
+		local x = {}
+		for i = 1, field_w do
+			table.insert(x, 0)
+			print(x[i])
+		end
+		table.insert(flood_map, x)
+	end
+	flood_map[1][1] = 1
+	print(flood_map[1][1])
+end
+
+function update_flood_map()
+	--[[
+	for i = 1, field_h, 1 do
+		for i = 1, field_w do
+			table.insert(x, 0)
+			print(x[i])
+		end
+		table.insert(flood_map, x)
+	end
+	--]]
 end
