@@ -12,6 +12,14 @@ function love.keypressed(k)
 	end
 	if debug then
 		if k == "r" then generate_field() end
+		if k == "f" then update_flood_map() end
+		--picking colors
+		if k == "1" then current_color = "red"; moves = moves + 1 end
+		if K == "2" then current_color = "orange"; moves = moves + 1 end
+		if k == "3" then current_color = "yellow"; moves = moves + 1 end
+		if k == "4" then current_color = "green"; moves = moves + 1 end
+		if k == "5" then current_color = "blue"; moves = moves + 1 end
+		if k == "6" then current_color = "purple"; moves = moves + 1 end
 	end
 end
 
@@ -77,13 +85,60 @@ function generate_flood_map()
 end
 
 function update_flood_map()
-	--[[
-	for i = 1, field_h, 1 do
-		for i = 1, field_w do
-			table.insert(x, 0)
-			print(x[i])
+	generate_flood_map() -- just for debugging REMOVE LATER
+	if moves == 0 then
+		current_color = field[1][1]
+	end
+
+	for y = 1, field_h, 1 do
+		for x = 1, field_w, 1 do
+			if flood_map[y][x] == 1 then
+				if y >= 2 then
+					if field[(y-1)][x] == current_color then
+						field[(y-1)][x] = current_color
+						flood_map[(y-1)][x] = 1
+					end
+				end
+				if y < field_h then
+					if field[(y+1)][x] == current_color then
+						field[(y+1)][x] = current_color
+						flood_map[(y+1)][x] = 1
+					end
+				end
+				if x >= 2 then
+					if field[y][(x-1)] == current_color then
+						field[y][(x-1)] = current_color
+						flood_map[y][(x-1)] = 1
+					end
+				end
+				if x < field_w then
+					if field[y][(x+1)] == current_color then
+						field[y][(x+1)] = current_color
+						flood_map[y][(x+1)] = 1
+					end
+				end
+			end
 		end
 		table.insert(flood_map, x)
 	end
-	--]]
+	apply_flood_map(current_color)
+	--debugging
+	if debug then
+		for y = 1, field_h, 1 do
+			for x = 1, field_w, 1 do
+				io.write(flood_map[y][x] .. " ")
+			end
+			io.write("\n")
+		end
+	end
+end
+
+function apply_flood_map(current_color)
+	for y = 1, field_h, 1 do
+		for x = 1, field_w, 1 do
+			if flood_map[y][x] == 1 then
+				field[y][x] = current_color
+			end
+		end
+	end
 end
