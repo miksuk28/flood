@@ -1,7 +1,8 @@
 math.randomseed(os.time())
 
 function love.load()
-	require "functions"
+	require "updates"
+	require "drawing"
 	colors = {"red", "orange", "yellow", "green", "blue", "purple"}
 	field = {}
 	flood_map = {}
@@ -15,14 +16,21 @@ function love.load()
 	generate_field()
 	generate_flood_map()
 
+	won_game = false
 	current_color = field[1][1]
 end
 
 function love.update(dt)
-	update_flood_map()
+	if not won_game then
+		update_flood_map()
+		check_win()
+	end
 end
 
 function love.draw()
 	love.graphics.setBackgroundColor(1, 1, 1)
 	draw_field()
+	rgb_color(0,0,0)
+	love.graphics.print("X: " .. love.mouse.getX(), 0, 0)
+	love.graphics.print("Y: " .. love.mouse.getY(), 0, 10)
 end

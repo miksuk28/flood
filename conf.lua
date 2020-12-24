@@ -9,7 +9,6 @@ function love.conf(t)
 	t.window.height = SCR_H
 	t.window.width = SCR_W
 
-
 	-- CHANGE 
 	t.window.icon = "troll.png"
 end

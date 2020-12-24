@@ -11,15 +11,17 @@ function love.keypressed(k)
 		love.event.quit()
 	end
 	if debug then
+		--[[
 		if k == "r" then generate_field() end
 		if k == "f" then update_flood_map() end
+		--]]
 		--picking colors
-		if k == "1" then current_color = "red"; 	moves = moves + 1; --[[update_flood_map()--]] end
-		if k == "2" then current_color = "orange"; 	moves = moves + 1; --[[update_flood_map()--]] end
-		if k == "3" then current_color = "yellow"; 	moves = moves + 1; --[[update_flood_map()--]] end
-		if k == "4" then current_color = "green"; 	moves = moves + 1; --[[update_flood_map()--]] end
-		if k == "5" then current_color = "blue"; 	moves = moves + 1; --[[update_flood_map()--]] end
-		if k == "6" then current_color = "purple"; 	moves = moves + 1; --[[update_flood_map()--]] end
+		if k == "1" then current_color = "red"; 	moves = moves + 1; end
+		if k == "2" then current_color = "orange"; 	moves = moves + 1; end
+		if k == "3" then current_color = "yellow"; 	moves = moves + 1; end
+		if k == "4" then current_color = "green"; 	moves = moves + 1; end
+		if k == "5" then current_color = "blue"; 	moves = moves + 1; end
+		if k == "6" then current_color = "purple"; 	moves = moves + 1; end
 	end
 end
 
@@ -32,41 +34,6 @@ function generate_field()
 			print(x[i])
 		end
 		table.insert(field, x)
-	end
-end
-
-function draw_field()
-	space_x = x_start
-	space_y = y_start
-
-	for i = 1, field_h do
-		y = i
-		for i = 1, field_w do
-			x = i
-			get_block_color(x, y)
-			love.graphics.rectangle("fill", space_x, space_y, cell_dim, cell_dim)
-			space_x = x_start + (cell_dim + cell_space) * i
-		end
-		space_y = y_start + (cell_dim + cell_space) * i
-		space_x = x_start
-	end
-end
-
-function get_block_color(x, y)
-	tile = field[y][x]
-	--print("Coloring tile: " .. x .. ", " .. y)
-	if tile == "red" then
-		rgb_color(255, 0, 0)
-	elseif tile == "orange" then
-		rgb_color(255, 165, 0)
-	elseif tile == "yellow" then
-		rgb_color(255, 255 ,0)
-	elseif tile == "green" then
-		rgb_color(0, 255, 0)
-	elseif tile == "blue" then
-		rgb_color(0, 0, 255)
-	elseif tile == "purple" then
-		rgb_color(255, 0, 255)
 	end
 end
 
@@ -85,11 +52,6 @@ function generate_flood_map()
 end
 
 function update_flood_map()
-	--[[
-	if moves == 0 then
-		current_color = field[1][1]
-	end --]]
-
 	for y = 1, field_h, 1 do
 		for x = 1, field_w, 1 do
 			if flood_map[y][x] == 1 then
@@ -140,5 +102,20 @@ function apply_flood_map(current_color)
 				field[y][x] = current_color
 			end
 		end
+	end
+end
+
+function check_win()
+	local fills = 0
+	for y = 1, field_h, 1 do
+		for x = 1, field_w, 1 do
+			if flood_map[y][x] == 1 then
+				fills = fills + 1
+			end
+		end
+	end
+	if fills == (field_w * field_h) then
+		won_game = true
+		love.load()
 	end
 end
