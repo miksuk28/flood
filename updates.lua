@@ -7,9 +7,7 @@ end
 
 --quits if esc pressed
 function love.keypressed(k)
-	if k == "escape" then
-		love.event.quit()
-	end
+	if k == "escape" then love.event.quit() end
 	if debug then
 		--[[
 		if k == "r" then generate_field() end
