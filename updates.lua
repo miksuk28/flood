@@ -1,4 +1,4 @@
-debug = true
+debug = false
 
 --setColor, except it's not stupid
 function rgb_color(r, g, b)
@@ -20,6 +20,14 @@ function love.keypressed(k)
 		if k == "4" then current_color = "green"; 	moves = moves + 1; end
 		if k == "5" then current_color = "blue"; 	moves = moves + 1; end
 		if k == "6" then current_color = "purple"; 	moves = moves + 1; end
+	end
+end
+
+--
+function love.mousepressed(x, y, button, isTouch)
+	if mouseX <= field_w and mouseX >= 1 and mouseY <= field_h and mouseY >= 1 and flood_map[mouseY][mouseX] ~= 1 then
+		current_color = field[mouseY][mouseX]
+		moves = moves + 1
 	end
 end
 

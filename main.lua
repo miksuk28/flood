@@ -21,6 +21,11 @@ function love.load()
 end
 
 function love.update(dt)
+	mouse_posX = love.mouse.getX()
+	mouse_posY = love.mouse.getY()
+	mouseX = math.floor(((mouse_posX - x_start) / cell_dim) + 1)
+	mouseY = math.floor(((mouse_posY - y_start) / cell_dim) + 1)
+
 	if not won_game then
 		update_flood_map()
 		check_win()
@@ -31,6 +36,7 @@ function love.draw()
 	love.graphics.setBackgroundColor(1, 1, 1)
 	draw_field()
 	rgb_color(0,0,0)
-	love.graphics.print("X: " .. love.mouse.getX(), 0, 0)
-	love.graphics.print("Y: " .. love.mouse.getY(), 0, 10)
+	love.graphics.print("X: " .. mouseX, 0, 0)
+	love.graphics.print("Y: " .. mouseY, 0, 10)
+	love.graphics.print("Moves: " .. moves, 0, 20)
 end
