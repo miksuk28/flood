@@ -1,4 +1,4 @@
-debug = false
+debug = true
 
 --setColor, except it's not stupid
 function rgb_color(r, g, b)
@@ -26,8 +26,10 @@ end
 --
 function love.mousepressed(x, y, button, isTouch)
 	if mouseX <= field_w and mouseX >= 1 and mouseY <= field_h and mouseY >= 1 and flood_map[mouseY][mouseX] ~= 1 then
-		current_color = field[mouseY][mouseX]
-		moves = moves + 1
+		if field[mouseY][mouseX] ~= current_color then
+			current_color = field[mouseY][mouseX]
+			moves = moves + 1
+		end
 	end
 end
 
@@ -36,7 +38,7 @@ function generate_field()
 	for i = 1, field_h, 1 do
 		local x = {}
 		for i = 1, field_w do
-			table.insert(x, colors[math.random(#colors)])
+			table.insert(x, colors[math.random(#colors)][1])
 			print(x[i])
 		end
 		table.insert(field, x)

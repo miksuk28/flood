@@ -3,7 +3,7 @@ math.randomseed(os.time())
 function love.load()
 	require "updates"
 	require "drawing"
-	colors = {"red", "orange", "yellow", "green", "blue", "purple"}
+	require "colors"
 	field = {}
 	flood_map = {}
 	field_w = 12

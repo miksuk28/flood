@@ -1,6 +1,6 @@
 --window dims
-SCR_W=1000
-SCR_H=1000
+SCR_W=700
+SCR_H=700
 
 function love.conf(t)
 	--Screen conf
