@@ -13,6 +13,7 @@ function love.load()
 	x_start = (SCR_W / 2) - (((cell_dim + cell_space) * field_w) / 2)
 	y_start = (SCR_H / 2) - (((cell_dim + cell_space) * field_h) / 2)
 	moves = 0
+	color_ammount = 6
 	generate_field()
 	generate_flood_map()
 
@@ -21,10 +22,9 @@ function love.load()
 end
 
 function love.update(dt)
-	mouse_posX = love.mouse.getX()
-	mouse_posY = love.mouse.getY()
-	mouseX = math.floor(((mouse_posX - x_start) / cell_dim) + 1)
-	mouseY = math.floor(((mouse_posY - y_start) / cell_dim) + 1)
+	fps = love.timer.getFPS()
+	mouseX = math.floor(((love.mouse.getX() - x_start) / cell_dim) + 1)
+	mouseY = math.floor(((love.mouse.getY() - y_start) / cell_dim) + 1)
 
 	if not won_game then
 		update_flood_map()

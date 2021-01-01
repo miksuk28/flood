@@ -1,4 +1,4 @@
-debug = true
+debug = false
 
 --setColor, except it's not stupid
 function rgb_color(r, g, b)
@@ -8,19 +8,6 @@ end
 --quits if esc pressed
 function love.keypressed(k)
 	if k == "escape" then love.event.quit() end
-	if debug then
-		--[[
-		if k == "r" then generate_field() end
-		if k == "f" then update_flood_map() end
-		--]]
-		--picking colors
-		if k == "1" then current_color = "red"; 	moves = moves + 1; end
-		if k == "2" then current_color = "orange"; 	moves = moves + 1; end
-		if k == "3" then current_color = "yellow"; 	moves = moves + 1; end
-		if k == "4" then current_color = "green"; 	moves = moves + 1; end
-		if k == "5" then current_color = "blue"; 	moves = moves + 1; end
-		if k == "6" then current_color = "purple"; 	moves = moves + 1; end
-	end
 end
 
 --
@@ -38,8 +25,8 @@ function generate_field()
 	for i = 1, field_h, 1 do
 		local x = {}
 		for i = 1, field_w do
-			table.insert(x, colors[math.random(#colors)][1])
-			print(x[i])
+			table.insert(x, colors[math.random(1, color_ammount)][1])
+			if debug then print(x[i]) end
 		end
 		table.insert(field, x)
 	end
@@ -51,12 +38,12 @@ function generate_flood_map()
 		local x = {}
 		for i = 1, field_w do
 			table.insert(x, 0)
-			print(x[i])
+			if debug then print(x[i]) end
 		end
 		table.insert(flood_map, x)
 	end
 	flood_map[1][1] = 1
-	print(flood_map[1][1])
+	if debug then print(flood_map[1][1]) end
 end
 
 function update_flood_map()
@@ -126,4 +113,9 @@ function check_win()
 		won_game = true
 		love.load()
 	end
+end
+
+--linear interpolation for rgb fading
+function interpolate(startVal, endVal, frames)
+	return startVal + ((endVal - startVal) / frames)
 end

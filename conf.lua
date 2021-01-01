@@ -8,6 +8,7 @@ function love.conf(t)
 	t.window.title = "Flood"
 	t.window.height = SCR_H
 	t.window.width = SCR_W
+	t.modules.joystick = false
 
 	-- CHANGE 
 	t.window.icon = "troll.png"
